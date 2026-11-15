@@ -1,3 +1,6 @@
+-- Schema for the api-test order API.
+-- Apply with: psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/schema.sql
+
 CREATE TABLE IF NOT EXISTS products (
     id bigint PRIMARY KEY,
     stock bigint NOT NULL CHECK (stock >= 0)
