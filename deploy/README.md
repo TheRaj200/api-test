@@ -28,9 +28,9 @@ process count (and therefore RAM) bounded.
 ## 2. Binary
 
 ```bash
-CGO_ENABLED=0 go build -trimpath -ldflags "-s -w" -o api-test ./cmd/api
+make build          # or: CGO_ENABLED=0 go build -trimpath -ldflags "-s -w" -o bin/api-test ./cmd/api
 sudo install -d -o apitest -g apitest /opt/api-test
-sudo install -o apitest -g apitest api-test /opt/api-test/api-test
+sudo install -o apitest -g apitest bin/api-test /opt/api-test/api-test
 ```
 
 The stripped static binary is ~8 MB and idles around 15 MB RSS.
@@ -49,10 +49,14 @@ journalctl -u api-test -f
 
 ```bash
 curl -s localhost:8080/health
+curl -s localhost:8080/readyz          # 503 until Postgres is reachable
 curl -s -X POST localhost:8080/orders \
   -H 'Content-Type: application/json' \
   -d '{"product_id":1,"quantity":1}'
 ```
+
+Point any external health check at `/readyz`, not `/health`, so a DB outage
+takes the instance out of rotation instead of serving 500s.
 
 ## Capacity expectations on this size
 

@@ -69,3 +69,8 @@ func (s *Store) Order(ctx context.Context, id int64) (Order, error) {
 	}
 	return result, nil
 }
+
+// Ping reports whether the database is reachable.
+func (s *Store) Ping(ctx context.Context) error {
+	return s.db.PingContext(ctx)
+}

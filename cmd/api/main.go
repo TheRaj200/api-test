@@ -5,7 +5,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-	"log"
+	"log/slog"
 	"net/http"
 	"os"
 	"os/signal"
@@ -20,14 +20,21 @@ import (
 )
 
 func main() {
+	if err := run(); err != nil {
+		slog.Error("server failed", "err", err)
+		os.Exit(1)
+	}
+}
+
+func run() error {
 	cfg := config.Load()
 	if cfg.DatabaseURL == "" {
-		log.Fatal("DATABASE_URL is required")
+		return errors.New("DATABASE_URL is required")
 	}
 
 	db, err := sql.Open("postgres", cfg.DatabaseURL)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	defer db.Close()
 
@@ -42,7 +49,7 @@ func main() {
 	err = db.PingContext(ctx)
 	cancel()
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	server := &http.Server{
@@ -58,13 +65,16 @@ func main() {
 	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
 	go func() {
 		<-stop
+		slog.Info("shutting down")
 		shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), 10*time.Second)
 		defer shutdownCancel()
 		_ = server.Shutdown(shutdownCtx)
 	}()
 
-	log.Printf("listening on :%s", cfg.Port)
+	slog.Info("listening", "addr", ":"+cfg.Port, "max_open_conns", cfg.MaxOpenConns)
 	if err := server.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
-		log.Fatal(err)
+		return err
 	}
+	slog.Info("stopped")
+	return nil
 }

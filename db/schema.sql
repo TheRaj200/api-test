@@ -12,4 +12,7 @@ CREATE TABLE IF NOT EXISTS orders (
     quantity bigint NOT NULL CHECK (quantity > 0)
 );
 
+-- Speeds up per-product counts such as the README concurrency check.
+CREATE INDEX IF NOT EXISTS orders_product_id_idx ON orders (product_id);
+
 INSERT INTO products (id, stock) VALUES (1, 100) ON CONFLICT DO NOTHING;
