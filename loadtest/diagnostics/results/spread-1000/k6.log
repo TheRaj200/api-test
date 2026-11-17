@@ -1,0 +1,1 @@
+time="2026-11-17T17:13:38Z" level=info msg="case_summary target_rate=1000 achieved_rps=999.97 created201=60001 oos409=0 server5xx=0 other=0 network=0 timeouts=0 dropped=0" source=console

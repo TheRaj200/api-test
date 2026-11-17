@@ -21,6 +21,12 @@ pass the same address to k6 with `-e BASE_URL=...`.
 | `stress-write.js` | Ramped arrival rate 5 -> 600 req/s on `POST /orders`. Measures the DB transaction path. |
 | `rate-read.js` | Fixed rate for one tier, `-e RATE=5000 -e DUR=20s`. Use it to walk up to the ceiling. |
 | `rate-write.js` | Fixed write rate for one tier, same env knobs. |
+| `writes-fixed.js` | Fixed write rate across one or many products (`-e PRODUCT_IDS=9001,9002,...`), with status and latency-bucket counters. Used by the diagnostic harness. |
+| `burst.js` | Fixed number of `POST /orders` requests fired as fast as possible (`-e REQUESTS`, `-e VUS`), for the 100-unit oversell/burst check. |
+
+The full write-path diagnostic harness (resource sampler, runners, SQL
+snapshots and report) lives in [`diagnostics/`](diagnostics/README.md) and its
+findings are in [`DIAGNOSTIC_REPORT.md`](DIAGNOSTIC_REPORT.md).
 
 ## Running
 

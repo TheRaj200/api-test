@@ -1,0 +1,17 @@
+label=burst-2000
+target_rate=burst
+products=9201
+requests=2000
+vus=400
+max_duration=120s
+base_url=http://127.0.0.1:8080
+started_at=2026-11-17T17:40:33+00:00
+host=ip-172-31-8-16.ap-southeast-2.compute.internal
+cpus=2
+k6_version=k6 v2.4.0 (commit/dd9395906d, go1.26.11, linux/amd64)
+api_binary_sha256=4bf4b4fda3da281d3f230198c422dcf5cbafcbe0cbd6b5778c20ad8ab5695486
+synchronous_commit=on
+track_wal_io_timing=on
+burst_finished_ms=1043
+finished_at=2026-11-17T17:40:54+00:00
+k6_exit=0

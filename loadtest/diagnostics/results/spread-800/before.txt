@@ -1,0 +1,15 @@
+orders_test_total,8001
+orders_all,37877
+orders_9001,1976
+orders_9002,2038
+orders_9003,2013
+orders_9004,1974
+orders_9100,0
+orders_9201,0
+stock_9001,4998024
+stock_9002,4997962
+stock_9003,4997987
+stock_9004,4998026
+stock_9100,1000000
+stock_9201,100
+seq_orders,360855

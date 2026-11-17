@@ -1,0 +1,20 @@
+label=single-900
+target_rate=900
+products=9001
+duration=60s
+warmup=10s
+base_url=http://127.0.0.1:8080
+started_at=2026-11-17T17:36:57+00:00
+host=ip-172-31-8-16.ap-southeast-2.compute.internal
+kernel=6.18.62-127.179.amzn2023.x86_64
+cpus=2
+k6_version=k6 v2.4.0 (commit/dd9395906d, go1.26.11, linux/amd64)
+api_binary_sha256=4bf4b4fda3da281d3f230198c422dcf5cbafcbe0cbd6b5778c20ad8ab5695486
+max_open_conns=DB_MAX_OPEN_CONNS=6
+synchronous_commit=on
+track_wal_io_timing=on
+shared_buffers=128MB
+max_connections=100
+wal_level=replica
+finished_at=2026-11-17T17:38:12+00:00
+k6_exit=0

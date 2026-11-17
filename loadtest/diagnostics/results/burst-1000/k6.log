@@ -1,0 +1,1 @@
+time="2026-11-17T17:40:12Z" level=info msg="burst_summary requests=1000 vus=200 started=1000 dropped=0 duration_ms=335.200513 created201=100 oos409=900 server5xx=0 other=0 network=0 timeouts=0" source=console

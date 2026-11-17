@@ -24,8 +24,10 @@ Single-box reality:
 
 - **~18-20k req/s** for a no-database endpoint.
 - **~9-10k req/s** for a read mix that hits PostgreSQL.
-- **~900 orders/s** for the write path, because every order is one synchronous
-  `COMMIT` (one WAL fsync).
+- **~900 orders/s** for a single product. The write-path diagnostic report shows
+  this is first same-row lock serialization in `UPDATE products ...`; the
+  per-order WAL fsync becomes the next wall (~1,000-1,100/s) once rows are
+  spread. See `DIAGNOSTIC_REPORT.md`.
 
 Server-side latency with no network in the way is 0.22 ms average for
 `GET /health`, and the API process idles around 11 MB RSS.
