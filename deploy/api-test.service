@@ -9,12 +9,11 @@ User=apitest
 Group=apitest
 WorkingDirectory=/opt/api-test
 
-# Replace the password. Keep sslmode=disable only for a local socket/host.
-Environment=DATABASE_URL=postgres://postgres:CHANGE_ME@localhost:5432/api_test?sslmode=disable
+EnvironmentFile=/etc/api-test/api-test.env
 Environment=PORT=8080
 # 6 pooled connections is plenty for 1 vCPU and leaves Postgres headroom.
 Environment=DB_MAX_OPEN_CONNS=6
-# Hard cap so the Go runtime cannot balloon on a 1 GB machine.
+# Soft Go runtime memory target. MemoryMax below is the hard service limit.
 Environment=GOMEMLIMIT=128MiB
 
 ExecStart=/opt/api-test/api-test
