@@ -24,7 +24,7 @@ vet: ## Static analysis
 fmt: ## Format Go sources
 	gofmt -l -w cmd internal
 
-check: ## Format, analyse and test, same as CI
-	gofmt -l cmd internal
+check: ## Verify formatting, analyse and test, same as CI
+	@test -z "$(shell gofmt -l cmd internal)" || (echo "Go files need formatting; run make fmt" && exit 1)
 	go vet ./...
 	go test ./...
